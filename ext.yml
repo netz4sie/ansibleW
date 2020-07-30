@@ -1,0 +1,8 @@
+
+
+name: "First play book"
+tasks:
+  - name: Cos1
+    shell: echo Test komunikatu
+
+      

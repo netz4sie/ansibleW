@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "list disk" >test1.txt
+ssh jakubr@wins '  diskpart  ' <test1.txt |grep Online |  awk -e '{printf("%s       %s %s %s\n",$4,$5,$2,$6);}' |uniq -D -w 7 | awk -e '{ if ($4=0) ; print($3" "$4) ;}'
+#|grep "Partition" |grep -v Boot | awk -e '{print($7,$8,$4,$2);}' |uniq -D -w 7 | awk -e '{printf("select volume %s\n extend \n",$4 );}'

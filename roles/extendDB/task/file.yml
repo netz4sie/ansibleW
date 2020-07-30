@@ -1,0 +1,20 @@
+---
+
+- name: "create file"
+    file:
+        path: "/home/jakubr/test.file"
+        owner: "jakubr"
+        mode: "0640"
+        state: "touch"
+        hosts: centos
+    tags:
+        - "extendDB"
+- name: "Test coping file"
+    copy:
+        src: /home/jakubr/ttt.txt
+        dest: /home/jakubr/dest.file
+        owner: jakubr
+        group: jakubr
+        mode: "0644"
+    tags:
+        - "extendDB"

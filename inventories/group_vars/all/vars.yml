@@ -1,0 +1,11 @@
+---
+group1:
+  virto_conf_dir: "/home/jakubr/"
+  virto_conf_file: "/home/jakubr/test.file"
+windows:
+  wins:
+    ip: 192.168.1.27
+    user: jakubr
+    virt_server: virto
+    virt_config: /etc/pve/nodes/kadith2/qemu-server/127.conf
+    virt_data: sata

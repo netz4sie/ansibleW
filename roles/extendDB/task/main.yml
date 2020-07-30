@@ -1,0 +1,8 @@
+---
+
+# 
+- name: "File mods"
+  import_tasks: file.yml
+  tags:
+    - "file"
+
