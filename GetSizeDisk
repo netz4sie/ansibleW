@@ -1,0 +1,6 @@
+#!/bin/bash
+#echo "list disk" >test1.txt
+echo "list disk" | ssh jakubr@$1 '  diskpart  ' |grep Online |  awk -e '{if ($5=="MB") printf("%s\n",$4/1024)
+else
+printf("%s\n",$4);}' |uniq -d    
+#echo "list disk" | ssh jakubr@$1 '  diskpart  ' |grep Online |  awk -e '{printf("%s       %s %s %s\n",$4,$5,$2,$6);}' |uniq -D -w 7 | awk -e '{ if ($4 != '0' ) print($3" "$4) ;}' | wc -l 

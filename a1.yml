@@ -1,0 +1,29 @@
+---
+  - hosts: centos
+    become: no
+    gather_facts: no
+    tasks:
+    - name: Sprawdzenie wolnego miejsca na dyskach windows
+      register: RET1
+      shell: 
+        '{{playbook_dir}}/getFreeDisk wins' 
+      args:
+        executable: /bin/bash
+    - debug:
+        msg: System {{RET1}} oraz {{RET1.stdout}} oraz {{windows.wins.ip}}
+    - name: Pobranie wielkości dysków które mają być powiększone 
+      register: RET2
+      shell: 
+        '{{playbook_dir}}/GetSizeDisk wins' 
+      args:
+        executable: /bin/bash
+    - name: Sprawdzenie które dyski należy powiekszyc na wirtualnej maszynie
+      register: RET3
+      shell:
+        ssh root@{{windows.wins.virt_server}} cat {{windows.wins.virt_config}} |grep {{windows.wins.virt_data}} |grep "size={{RET2.stdout}}G" |awk -F':' '{print($1);}'
+      args:
+        executable: /bin/bash
+    - debug:
+        msg: System {{RET3}}
+   
+      

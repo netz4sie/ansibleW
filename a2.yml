@@ -1,0 +1,20 @@
+---
+  - hosts: centos
+    become: no
+    gather_facts: no
+    tasks:
+    - name: checking shell power
+      shell: |
+            'echo {{group1.virto_conf_dir}} >{{playbook_dir}}/test1.txt;'
+            'date >>{{playbook_dir}}/test1.txt;'
+      args:
+       executable: /bin/bash
+
+    - name: Task2
+      shell:
+        'echo Bylo ok? >>{{playbook_dir}}/test1.txt'
+      when: RET1 == 1
+      
+    - debug:
+        msg: System {{RET1}}
+    
