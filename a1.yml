@@ -25,5 +25,12 @@
         executable: /bin/bash
     - debug:
         msg: System {{RET3}}
+    - name: Powiekszenie dyskow na virtualce
+      shell:
+        echo "{{item}}" | awk -e '{print("qm resize 127 "$1" 3G\n")};' | tee -a {{playbook_dir}}/test4.txt | ssh root@{{windows.wins.virt_server}} bash
+      args:
+        executable: /bin/bash
+      with_items: 
+        - "{{ RET3.stdout }}"
    
       
