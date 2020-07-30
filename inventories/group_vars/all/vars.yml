@@ -7,5 +7,5 @@ windows:
     ip: 192.168.1.27
     user: jakubr
     virt_server: virto
-    virt_config: /etc/pve/nodes/kadith2/qemu-server/127.conf
-    virt_data: sata
+    virt_config: "/etc/pve/nodes/kadith2/qemu-server/127.conf"
+    virt_data: "sata"
