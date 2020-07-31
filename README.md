@@ -7,41 +7,41 @@
 # Automatyczne powiekszenie dysku serwera windows
 #
  Jeszcze jest sporo todo
- Ale konczy mi się czas wiec pierwszy szkielet
- w skrypcie w kilku miejscach jest zaszyta nazwa serwera windows "wins" - klucz do parametrow
+ Ale kończy mi się czas wiec pierwszy szkielet
+ w skrypcie w kilku miejscach jest zaszyta nazwa serwera windows "wins" - klucz do parametrów
 
- generalnie powinna byc podawana jako opcja lub system powinien zapytac o nazwe serwera
+ generalnie powinna byc podawana jako opcja lub system powinien zapytać o nazwe serwera
  To pierwsze ToDo <BR>
- Drugie ToDo to wielkosc powiekszenia dysku - tez powinna byc opcja z linni  <BR>
+ Drugie ToDo to wielkość powiekszenia dysku - tez powinna być opcja z linii  <BR>
  Trzecie ToDo - przbudowanie skryptu tak aby mógł być uruchamiany dla wielu serwerów<BR>
  Czwarte Todo - rozumiem że możemy mieć różnie serwery wirtualne - w zależności od konfiguracji można wybierać inne moduły dostępu do nich. Ja u siebie mam proxmox-a i na nim zrobiłem przykład<BR>
- Piąte Todo - brakuje obsługi błędów które mogły by zaistnieć z powodów które nie powinny mięc miejsca<BR>
+ Piąte Todo - brakuje obsługi błędów które mogły by zaistnieć z powodów które nie powinny mieć miejsca<BR>
 
 # Założenia:
- Rozumiem iz załorzenie 3 identycznych dyskow jest po to aby bylo wiadomo ktore powiekszac
- Ale to chyba nie jest dobra droga bo i tak musimy wiedziec na jakiej maszynie jest serwer windows
- z tego wynika potrzeba uzupelnienia danych inventories vars.
- tam dla kazdego serwera windows zbudowana jest konfiguracja i tam mogla by sie znalesc informacja o dyskach np. oracle
- Ja w swoim przypadku nazwalem wolumeny na windowsie w stylu oracle_data
- I w praktyce mozna by bylo wyszukac volumeny ktore maja w nazwie np oracle lub cokolwiek
- i bardziej wybiórczo ustawiać wielkości dyskow
+ Rozumiem iz załoenie 3 identycznych dyskow jest po to aby było wiadomo które powiekszać
+ Ale to chyba nie jest dobra droga bo i tak musimy wiedziec na jakiej maszynie jest virtualny serwer
+ z tego wynika potrzeba uzupelnienia danych inventories vars. <BR>
+ Tam dla każdego serwera windows zbudowana jest konfiguracja i tam mogła by sie znaleść informacja o dyskach np. oracle <BR>
+ Ja w swoim przypadku nazwałem wolumeny na windowsie w stylu oracle_data<BR>
+ I w praktyce mozna by bylo wyszukac volumeny które maja w nazwie np oracle lub cokolwiek
+ i bardziej wybiórczo ustawiać wielkości dysków
 
-# To co może się nie podobac ... 
- 1. wiekszosc kodu to skrypty bashowe,
-    są 3 uruchamianych z dysku z opcjami reszte wprowadziłem bezpośrednio do kodu 
+# To co może się nie podobać ... 
+ 1. wiekszość kodu to skrypty bashowe,
+    są 3 uruchamianych z dysku z opcjami resztę wprowadziłem bezpośrednio do kodu 
     w tych 3 miałem problem z znakami " <BR>
- 2. Do połaczenia z serwerem windows używam ssh a nie PowerShell,
-   dwa pierwsze dni strawilem na ustawienie srodowiska cantos + WS 2012 + testowy Windows 7 <BR>
+ 2. Do połączenia z serwerem windows używam ssh a nie PowerShell,
+   dwa pierwsze dni strawilem na ustawienie środowiska cantos + WS 2012 + testowy Windows 7 i przejść między nimi<BR>
   PowerShell bronił sie mocno przed dostępem zdalnym i pierwsze co uruchomiłem to ssh z kluczami
-  później uruchumiłem przebitkę przez PowerShell ale już nie chcialem tracić czasu na ustawianie autoryzacji
-  więc nie uzywam komend PowerShell <BR>
- 3. Nie korzystałem z importowanych rolle - pewnie było by ładniej ale obecnie i tak playbook jest krotki <BR>
+  później uruchomiłem przebitkę przez PowerShell ale już nie chciałem tracić czasu na ustawianie autoryzacji
+  więc nie używam komend PowerShell <BR>
+ 3. Nie korzystałem z importowanych role - pewnie było by ładniej ale obecnie i tak playbook jest krotki <BR>
 
 # Teraz logika wykonywania:
  1. Sprawdzenie wolnego miejsca na dyskach windowsa, jeśli jest to prawdopodobnie coś się wcześniej nie powiodło. Bo możliwe że wystarczy powiększyć wolumeny.<BR>
- 2. Pobranie wielkości dysków którem mają być powiększone. Po pierwsze system zwraca tylko powtarzające się wielkości po drugie wielkość jest zapisywana pod WinDiskSize i później sprawdzana czy przypadkiem już nie powiększyliśmy dysku na virtualce a windows tego jeszcze nie widzi.<BR>
+ 2. Pobranie wielkości dysków które mają być powiększone. Po pierwsze system zwraca tylko powtarzające się wielkości po drugie wielkość jest zapisywana pod WinDiskSize i później sprawdzana czy przypadkiem już nie powiększyliśmy dysku na virtualce a windows tego jeszcze nie widzi.<BR>
  3. Wyciągana jest nazwa dysków na virtualce zgodna wielkościowo z tym co jest na windowsie<BR>
- 4. Powiększenie dysków na wirtualce z dwoma warunkami 1. Dyski na windowsie nie mają wlnej przestrzeni co mogło by świadczyć iż nie zostały powiększone oraz jeśli aktualna wielkość dysków na wirtualce oraz na windowsie jest identyczny - bo może już wcześniej ten krok został wykonany<BR>
+ 4. Powiększenie dysków na virtualce z dwoma warunkami 1. Dyski na windowsie nie mają wolnej przestrzeni co mogło by świadczyć iż nie zostały powiększone oraz jeśli aktualna wielkość dysków na virtualce oraz na windowsie jest identyczny - bo może już wcześniej ten krok został wykonany<BR>
  5. Zatrzymanie serwera od strony maszyny wirtualnej i poczekanie aż faktycznie się zatrzyma<BR>
  6. Uruchomienie serwera<BR> 
  7. Powiększenie przestrzeni na powiększonych dyskach<BR>
