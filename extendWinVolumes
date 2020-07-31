@@ -1,0 +1,2 @@
+#!/bin/bash
+echo "list volume" | ssh jakubr@$1 '  diskpart  ' |grep "Partition" |grep -v Boot | awk -e '{print($7,$8,$4,$2);}' |uniq -D -w 7 | awk -e '{printf("select volume %s\n extend \n",$4 );}' |  ssh jakubr@$1 '  diskpart  '

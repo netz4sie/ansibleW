@@ -1,8 +1,0 @@
-qm resize 127 sata1 1G
-
-qm resize 127 sata2 1G
-
-qm resize 127 sata3 1G
-
-qm resize 127 sata4 1G
-

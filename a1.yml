@@ -39,19 +39,26 @@
         executable: /bin/bash
       with_items: 
         - "{{ RET3.stdout }}"
-      when: WinDiskSize == VirtoDiskSize
+      when: WinDiskSize == VirtoDiskSize and WinDiskRedy == 0
     - name: Zatrzymani serwera windows + odczekanie aż stanie
       register: RET5
       shell:
         ssh root@{{windows.wins.virt_server}} "qm shutdown {{windows.wins.virt_id}}; OUT=1; while [ $OUT -eq 1 ]; do OUT=`qm status 127 |grep running |wc -l` ; sleep 5;echo "." ; done; echo -n Stopped"
       args:
         executable: /bin/bash
+      when: WinDiskRedy == 0
     - name: Uruchomienie serwera windows
       register: RET5
       shell:
         ssh root@{{windows.wins.virt_server}} "qm start {{windows.wins.virt_id}}; "
       args:
           executable: /bin/bash
-    
+      when: WinDiskRedy == 0
+    - name: Powiekszenie volumenow na windowsie
+      register: RET6
+      shell: 
+        '{{playbook_dir}}/extendWinVolumes wins' 
+      args:
+        executable: /bin/bash
     - debug:
         msg: "Koniec programu"
