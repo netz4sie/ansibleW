@@ -25,7 +25,6 @@
  Ja w swoim przypadku nazwalem wolumeny na windowsie w stylu oracle_data
  I w praktyce mozna by bylo wyszukac volumeny ktore maja w nazwie np oracle lub cokolwiek
  i bardziej wybiórczo ustawiać wielkości dyskow
- 
 
 # To co może się nie podobac ... 
  1. wiekszosc kodu to skrypty bashowe,
@@ -37,7 +36,7 @@
   później uruchumiłem przebitkę przez PowerShell ale już nie chcialem tracić czasu na ustawianie autoryzacji
   więc nie uzywam komend PowerShell <BR>
  3. Nie korzystałem z importowanych rolle - pewnie było by ładniej ale obecnie i tak playbook jest krotki <BR>
- <BR>
+
 # Teraz logika wykonywania:
  1. Sprawdzenie wolnego miejsca na dyskach windowsa, jeśli jest to prawdopodobnie coś się wcześniej nie powiodło. Bo możliwe że wystarczy powiększyć wolumeny.<BR>
  2. Pobranie wielkości dysków którem mają być powiększone. Po pierwsze system zwraca tylko powtarzające się wielkości po drugie wielkość jest zapisywana pod WinDiskSize i później sprawdzana czy przypadkiem już nie powiększyliśmy dysku na virtualce a windows tego jeszcze nie widzi.<BR>
