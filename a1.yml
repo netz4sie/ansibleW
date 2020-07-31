@@ -9,6 +9,7 @@
         '{{playbook_dir}}/getFreeDisk wins' 
       args:
         executable: /bin/bash
+    - set_fact: WinDiskRedy={{RET1.stdout}}
     - debug:
         msg: System {{RET1}} oraz {{RET1.stdout}} oraz {{windows.wins.ip}}
     - name: Pobranie wielkości dysków które mają być powiększone 
@@ -17,20 +18,40 @@
         '{{playbook_dir}}/GetSizeDisk wins' 
       args:
         executable: /bin/bash
+    - set_fact: WinDiskSize={{RET2.stdout}}
     - name: Sprawdzenie które dyski należy powiekszyc na wirtualnej maszynie
       register: RET3
       shell:
         ssh root@{{windows.wins.virt_server}} cat {{windows.wins.virt_config}} |grep {{windows.wins.virt_data}} |grep "size={{RET2.stdout}}G" |awk -F':' '{print($1);}'
       args:
         executable: /bin/bash
+    - name: Sprawdzenie jaka aktualnie jest wielkosc dysku na wirtualce
+      register: RET4
+      shell:
+        ssh root@{{windows.wins.virt_server}} cat {{windows.wins.virt_config}} |grep sata |grep "size" |awk -F'=' '{if (NR==1) print($2);}' |sed -e 's/G//g'
+    - set_fact: VirtoDiskSize={{RET4.stdout}}
     - debug:
-        msg: System {{RET3}}
-    - name: Powiekszenie dyskow na virtualce
+        msg: System {{RET3}} \n {{RET2.stdout}} \n {{RET4.stdout}}
+    - name: Powiekszenie dyskow na virtualce jeśli wcześniej przestrzeń nie została powiekszona
       shell:
         echo "{{item}}" | awk -e '{print("qm resize 127 "$1" 3G\n")};' | tee -a {{playbook_dir}}/test4.txt | ssh root@{{windows.wins.virt_server}} bash
       args:
         executable: /bin/bash
       with_items: 
         - "{{ RET3.stdout }}"
-   
-      
+      when: WinDiskSize == VirtoDiskSize
+    - name: Zatrzymani serwera windows + odczekanie aż stanie
+      register: RET5
+      shell:
+        ssh root@{{windows.wins.virt_server}} "qm shutdown {{windows.wins.virt_id}}; OUT=1; while [ $OUT -eq 1 ]; do OUT=`qm status 127 |grep running |wc -l` ; sleep 5;echo "." ; done; echo -n Stopped"
+      args:
+        executable: /bin/bash
+    - name: Uruchomienie serwera windows
+      register: RET5
+      shell:
+        ssh root@{{windows.wins.virt_server}} "qm start {{windows.wins.virt_id}}; "
+      args:
+          executable: /bin/bash
+    
+    - debug:
+        msg: "Koniec programu"
