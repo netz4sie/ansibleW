@@ -6,31 +6,33 @@
 #
 # Automatyczne powiekszenie dysku serwera windows
 #
-# Jeszcze jest sporo todo
-# Ale konczy mi się czas wiec pierwszy szkielet
-# w skrypcie w kilku miejscach jest zaszyta nazwa serwera windows "wins" - klusz do parametrow
-#
-# generalnie powinna byc podawana jako opcja lub system powinien zapytac o nazwe serwera
-# To pierwsze ToDo
-# Drugie to do to wielkosc powiekszenia dysku - tez powinna byc opcja z linni  
-# Trzecie ToDo - przbudowanie skryptu tak aby mógł być uruchamiany dla wielu serwerów
-# Czwarte Todo - rozumiem że możemy mieć różnie serwery wirtualne - w zależności od konfiguracji można wybierać inne moduły dostępu do nich. Ja u siebie mam proxmox-a i na nim zrobiłem przykład
-# Piąte Todo - brakuje obsługi błędów które mogły by zaistnieć z powodów które nie powinny mięc miejsca
-#
-# Rozumiem iz załorzenie 3 identycznych dyskow jest po to aby bylo wiadomo ktore powiekszac
-# Ale to chyba nie jest dobra droga bo i tak musimy wiedziec na jakiej maszynie jest serwer windows
-# z tego wynika potrzeba uzupelnienia danych inventories vars.
-# tam dla kazdego serwera windows zbudowana jest konfiguracja i tam mogla by sie znalesc informacja o dyskach np. oracle
-# Ja w swoim przypadku nazwalem wolumeny na windowsie w stylu oracle_data
-# I w praktyce mozna by bylo wyszukac volumeny ktore maja w nazwie np oracle lub cokolwiek
-# i bardziej wybiórczo ustawiać wielkości dyskow
-#
+ Jeszcze jest sporo todo
+ Ale konczy mi się czas wiec pierwszy szkielet
+ w skrypcie w kilku miejscach jest zaszyta nazwa serwera windows "wins" - klusz do parametrow
+
+ generalnie powinna byc podawana jako opcja lub system powinien zapytac o nazwe serwera
+ To pierwsze ToDo
+ Drugie ToDo to wielkosc powiekszenia dysku - tez powinna byc opcja z linni  
+ Trzecie ToDo - przbudowanie skryptu tak aby mógł być uruchamiany dla wielu serwerów
+ Czwarte Todo - rozumiem że możemy mieć różnie serwery wirtualne - w zależności od konfiguracji można wybierać inne moduły dostępu do nich. Ja u siebie mam proxmox-a i na nim zrobiłem przykład
+ Piąte Todo - brakuje obsługi błędów które mogły by zaistnieć z powodów które nie powinny mięc miejsca
+
+# Założenia:
+ Rozumiem iz załorzenie 3 identycznych dyskow jest po to aby bylo wiadomo ktore powiekszac
+ Ale to chyba nie jest dobra droga bo i tak musimy wiedziec na jakiej maszynie jest serwer windows
+ z tego wynika potrzeba uzupelnienia danych inventories vars.
+ tam dla kazdego serwera windows zbudowana jest konfiguracja i tam mogla by sie znalesc informacja o dyskach np. oracle
+ Ja w swoim przypadku nazwalem wolumeny na windowsie w stylu oracle_data
+ I w praktyce mozna by bylo wyszukac volumeny ktore maja w nazwie np oracle lub cokolwiek
+ i bardziej wybiórczo ustawiać wielkości dyskow
+ 
+
 # To co może się nie podobac ... 
-# 1. wiekszosc kodu to skrypty bashowe,
-# są 3 uruchamianych z dysku z opcjami reszte wprowadziłem bezpośrednio do kodu 
-# w tcy 3 miałem problem z znakami "
-# 2. Do połaczenia z serwerem windows używam ssh a nie PowerShell,
-#  dwa pierwsze dni strawilem na ustawienie srodowiska cantos + WS 2012 + testowy Windows 7
+ 1. wiekszosc kodu to skrypty bashowe,
+    są 3 uruchamianych z dysku z opcjami reszte wprowadziłem bezpośrednio do kodu 
+    w tych 3 miałem problem z znakami "
+ 2. Do połaczenia z serwerem windows używam ssh a nie PowerShell,
+   dwa pierwsze dni strawilem na ustawienie srodowiska cantos + WS 2012 + testowy Windows 7
 #  PowerShell bronił sie mocno przed dostępem zdalnym i pierwsze co uruchomiłem to ssh z kluczami
 #  później uruchumiłem przebitkę przez PowerShell ale już nie chcialem tracić czasu na ustawianie autoryzacji
 #  więc nie uzywam komend PowerShell 
