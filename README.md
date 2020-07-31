@@ -1,8 +1,4 @@
 
-@settings {
-  font-size: 50;
-}
-
 #
 # Automatyczne powiekszenie dysku serwera windows
 #
