@@ -11,7 +11,7 @@
  w skrypcie w kilku miejscach jest zaszyta nazwa serwera windows "wins" - klusz do parametrow
 
  generalnie powinna byc podawana jako opcja lub system powinien zapytac o nazwe serwera
- To pierwsze ToDo
+ To pierwsze ToDo <BR>
  Drugie ToDo to wielkosc powiekszenia dysku - tez powinna byc opcja z linni  
  Trzecie ToDo - przbudowanie skryptu tak aby mógł być uruchamiany dla wielu serwerów
  Czwarte Todo - rozumiem że możemy mieć różnie serwery wirtualne - w zależności od konfiguracji można wybierać inne moduły dostępu do nich. Ja u siebie mam proxmox-a i na nim zrobiłem przykład
