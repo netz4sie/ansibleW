@@ -1,6 +1,6 @@
 
 @settings {
-  font-size: 100;
+  font-size: 50;
 }
 
 #
